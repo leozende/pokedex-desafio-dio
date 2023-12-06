@@ -67,6 +67,7 @@
     margin: .5rem;
     padding: 1rem;
     border-radius: 1rem;
+    position: relative;
     
 }
 
@@ -129,6 +130,26 @@
     background-color: #6c79db;
     border: none;
     border-radius: 1rem;
+}
+
+#cards {
+    position: absolute;
+    z-index: 2;
+    border-radius: 30px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8);
+    color: #FFF;
+    opacity: 0;
+    transition: left 0.3s ease, top 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#cards.show {
+    opacity: 1;
+}
+
+#cards .card-name {
+    font-weight: 700;
+    font-size: 2rem;
 }
 
 @media screen and (min-width: 380px) {

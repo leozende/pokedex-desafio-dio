@@ -1,15 +1,17 @@
 const pokemonList = document.getElementById('pokemonList');
 const loadMoreButton = document.getElementById('loadMoreButton');
+const pokemonCards = document.getElementById('cards');
 const limit = 10;
 let offset = 0;
 const maxRecords = 151;
 
 function loadPokemonItens(offset, limit) {
   pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-  
-      const newHtml = pokemons.map((pokemon) => {
-          return`
-            <li class="pokemon ${pokemon.type}">
+
+      pokemons.forEach((pokemon) => {
+        const pokemonElement = document.createElement('li');
+        pokemonElement.classList.add('pokemon', pokemon.type);
+        pokemonElement.innerHTML =`
                 <span class="number">#${pokemon.number}</span>
                 <span class="name">${pokemon.name}</span>
                 <div class="detail">
@@ -17,11 +19,16 @@ function loadPokemonItens(offset, limit) {
                       ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
                     </ol>
                     <img src="${pokemon.photo}" alt="${pokemon.name}">
-                </div>
-            </li>`
-        }).join("")
+                </div>`;
 
-      pokemonList.innerHTML += newHtml;
+      pokemonElement.addEventListener('mousemove', (event) => {
+        showPokemonInfo(pokemon, event);
+      });
+
+      pokemonElement.addEventListener('mouseleave', hideInfo);
+
+      pokemonList.appendChild(pokemonElement);
+
       // const listItems = []
       
       // for (let i = 0; i < pokemons.length; i++) {
@@ -31,7 +38,8 @@ function loadPokemonItens(offset, limit) {
   
       // console.log(listItems)
   
-    })
+    }).join("");
+  });
 }
 
 loadPokemonItens(offset, limit);
@@ -49,5 +57,53 @@ loadMoreButton.addEventListener('click', () => {
   }else{
     loadPokemonItens(offset, limit);
   }
+  attachCardsToPokemons();
 
 })
+
+
+function showPokemonInfo(pokemon, event) {
+
+  setTimeout(() => {
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('cards',`${pokemon.type}`);
+    cardContent.innerHTML = `
+        <span class="card-name">${pokemon.name}</span>
+            <ol class="types">
+              ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+            </ol>
+            <img src="${pokemon.photo}" alt="${pokemon.name}">
+        <span class="card-number">${pokemon.number}</span>
+        <table class="information">
+            <span>About</span>
+            <tr>
+                <td>Height</td>
+                <td>${pokemon.height} dm</td>
+            </tr>
+            <tr>
+                <td>Weight</td>
+                <td>${pokemon.weight} dm</td>
+            </tr>
+            <tr>
+                <td>Abilities</td>
+                <td>${pokemon.abilities.join(", ")}</td>
+            </tr>
+
+        </table>`;
+
+    pokemonCards.innerHTML = '';
+    pokemonCards.appendChild(cardContent);
+  }, 200);
+
+  if (event.clientX < (window.screen.width / 2) - 20) {
+    pokemonCards.style.left = event.clientX + 10 + "px";
+  } else {
+    pokemonCards.style.left = event.clientX - 330 + "px";
+  }
+  pokemonCards.style.top = event.clientY + 10 + "px";
+  pokemonCards.classList.add('show');
+}
+
+function hideInfo(){
+  pokemonCards.classList.remove('show');
+}
