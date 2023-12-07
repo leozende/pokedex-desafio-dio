@@ -4,5 +4,6 @@
         "pokemon",
         "pokemons",
         "Pokemons"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }

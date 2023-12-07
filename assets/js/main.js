@@ -66,14 +66,14 @@ function showPokemonInfo(pokemon, event) {
 
   setTimeout(() => {
     const cardContent = document.createElement('div');
-    cardContent.classList.add('cards',`${pokemon.type}`);
+    cardContent.classList.add(`${pokemon.type}`, 'card-pokemon');
     cardContent.innerHTML = `
         <span class="card-name">${pokemon.name}</span>
+        <span class="card-number">#${pokemon.number}</span>
             <ol class="types">
               ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
             </ol>
             <img src="${pokemon.photo}" alt="${pokemon.name}">
-        <span class="card-number">${pokemon.number}</span>
         <table class="information">
             <span>About</span>
             <tr>
@@ -96,11 +96,11 @@ function showPokemonInfo(pokemon, event) {
   }, 200);
 
   if (event.clientX < (window.screen.width / 2) - 20) {
-    pokemonCards.style.left = event.clientX + 10 + "px";
+    pokemonCards.style.left = event.pageX + 10 + "px";
   } else {
-    pokemonCards.style.left = event.clientX - 330 + "px";
+    pokemonCards.style.left = event.pageX - 410 + "px";
   }
-  pokemonCards.style.top = event.clientY + 10 + "px";
+  pokemonCards.style.top = event.pageY + 10 + "px";
   pokemonCards.classList.add('show');
 }
 

@@ -6,6 +6,11 @@
     margin: 0;
 }
 
+.pokemons li {
+    width: 95%;
+    height: 98%;
+}
+
 .normal {
     background-color:  #a6a877;
 }
@@ -59,6 +64,29 @@
 }
 .fairy {
     background-color:  #f9aec7;
+}
+
+.normal,
+.grass,
+.fire,
+.water,
+.electric,
+.ice,
+.ground,
+.flying,
+.poison,
+.fighting,
+.psychic,
+.dark,
+.rock,
+.bug,
+.ghost,
+.steel,
+.dragon,
+.fairy {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
 }
 
 .pokemon {
@@ -133,6 +161,8 @@
 }
 
 #cards {
+    width:25rem;
+    height: 40rem;
     position: absolute;
     z-index: 2;
     border-radius: 30px;
@@ -141,15 +171,82 @@
     opacity: 0;
     transition: left 0.3s ease, top 0.3s ease;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    text-transform: capitalize;
+    pointer-events: none;
 }
 
 #cards.show {
     opacity: 1;
 }
 
-#cards .card-name {
+#cards .card-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+#cards .card-pokemon .card-name {
+    width: 80%;
+    text-align: left;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 4rem;
+}
+#cards .card-pokemon .card-number {
+    width: 70%;
+    text-align: right;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+#cards .card-pokemon .types {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+#cards .card-pokemon .types .type {
+    display: flex;
+    height: 1.5rem;
+    width: 7rem;
+    filter: brightness(1.1);
+    align-items: center;
+    justify-content: center;
+    margin: 0 2px;
+
+}
+
+#cards .card-pokemon img {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    z-index: 2;
+}
+
+#cards .card-pokemon .information {
+    bottom: 0;
+    z-index: 1;
+    position: absolute;
+    display:flex;
+    color: #000;
+    background-color: #FFF;
+    border-radius: 30px;
+    align-items: center;
+    height: 15rem;
+    width: 100%;
+
+}
+
+#cards .card-pokemon .information tr td{
+    padding: 1rem;
+    text-align: left;
 }
 
 @media screen and (min-width: 380px) {
